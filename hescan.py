@@ -4,7 +4,6 @@ import argparse
 from colorama import Fore, Style, init
 import ipaddress
 import time
-from datetime import datetime
 
 init(autoreset=True)
 
@@ -16,7 +15,7 @@ banner = f"""{Fore.LIGHTMAGENTA_EX}
  | | | |  __/\__ \ (_| (_| | | | |
  |_| |_|\___||___/\___\__,_|_| |_|
 {Style.RESET_ALL}
-      {Fore.RED}CODED BY https://github.com/k45t0/{Style.RESET_ALL} {Fore.YELLOW}|{Style.RESET_ALL} {Fore.LIGHTGREEN_EX}V2.0{Style.RESET_ALL}
+      {Fore.RED}CODED BY @wh0l5th3r00t{Style.RESET_ALL} {Fore.YELLOW}|{Style.RESET_ALL} {Fore.LIGHTGREEN_EX}V2.0{Style.RESET_ALL}
 """
 
 print(banner)
@@ -77,7 +76,6 @@ def print_results(results):
 def write_results_to_file(results, output_file):
     with open(output_file, 'w') as f:
         for result in results:
-            # Write only the first element of each result line (ASN or IP range)
             f.write(result[0] + "\n")
 
 def generate_ip_combinations(results):
