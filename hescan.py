@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import argparse
 from colorama import Fore, Style, init
 import ipaddress
-import nmap
 import time
 from datetime import datetime
 
@@ -13,7 +12,7 @@ banner = f"""{Fore.LIGHTMAGENTA_EX}
   _
  | |
  | |__   ___  ___  ___ __ _ _ ___
- | '_ \ / _ \/ __|/ __/ _` | '_  \ 
+ | '_ \ / _ \/ __|/ __/ _` | '_  \ 
  | | | |  __/\__ \ (_| (_| | | | |
  |_| |_|\___||___/\___\__,_|_| |_|
 {Style.RESET_ALL}
@@ -75,13 +74,11 @@ def print_results(results):
             colored_result.append(f"{Fore.MAGENTA}{result[3]}{Style.RESET_ALL}")
         print(f" {Fore.YELLOW}|{Style.RESET_ALL} ".join(colored_result))
 
-def write_results_to_file(results, output_file, only_results=False):
+def write_results_to_file(results, output_file):
     with open(output_file, 'w') as f:
         for result in results:
-            if only_results:
-                f.write(f"{result[0]} ({result[1]})\n")
-            else:
-                f.write("\t".join(result) + "\n")
+            # Write only the first element of each result line (ASN or IP range)
+            f.write(result[0] + "\n")
 
 def generate_ip_combinations(results):
     ip_combinations = []
@@ -104,11 +101,10 @@ def main():
     start_time = time.time()
     parser = argparse.ArgumentParser(
         description='Fetch and filter BGP results.',
-        epilog='Example usage: python3 hescan.py -k Microsoft -or results.txt -c US'
+        epilog='Example usage: python3 hescan.py -k Microsoft -o results.txt -c US'
     )
     parser.add_argument('-k', '--keyword', required=True, help='Keyword to search for.')
-    parser.add_argument('-or', '--only_results', action='store_true', help='Save only results (ASN and IP) to the output file.')
-    parser.add_argument('-o', '--output', help='Output file to save the results.')
+    parser.add_argument('-o', '--output', help='Output file to save the results (only ASN and IP).')
     parser.add_argument('-oar', '--output_all_ranges', help='Output file to save all IP combinations for the results.')
     parser.add_argument('-i', '--ignore', nargs='+', choices=['result', 'type', 'description', 'country'], help='Columns to ignore in the output.')
     parser.add_argument('-c', '--country', help='Filter results by country.')
@@ -127,7 +123,7 @@ def main():
     print_results(results)
 
     if args.output:
-        write_results_to_file(results, args.output, args.only_results)
+        write_results_to_file(results, args.output)
 
     if args.output_all_ranges:
         ip_combinations = generate_ip_combinations(results)
