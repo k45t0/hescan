@@ -16,7 +16,7 @@ banner = f"""{Fore.LIGHTMAGENTA_EX}
  | | | |  __/\__ \ (_| (_| | | | |
  |_| |_|\___||___/\___\__,_|_| |_|
 {Style.RESET_ALL}
-      {Fore.RED}CODED BY @wh0l5th3r00t{Style.RESET_ALL} {Fore.YELLOW}|{Style.RESET_ALL} {Fore.LIGHTGREEN_EX}V2.0{Style.RESET_ALL}
+      {Fore.RED}CODED BY https://github.com/k45t0/{Style.RESET_ALL} {Fore.YELLOW}|{Style.RESET_ALL} {Fore.LIGHTGREEN_EX}V2.0{Style.RESET_ALL}
 """
 
 print(banner)
